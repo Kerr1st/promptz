@@ -139,7 +139,7 @@ function getLibraryCategory(owner: string, name: string): 'official' | 'communit
     return 'official'
   }
   
-  if (name.includes('product-teams')) {
+  if (name.includes('product-teams') || name.includes('genai-startups')) {
     return 'individual'
   }
   

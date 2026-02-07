@@ -10,3 +10,6 @@
 [submodule "libraries/product-teams"]
 	path = libraries/product-teams
 	url = https://github.com/aws-samples/sample-kiro-cli-prompts-for-product-teams.git
+[submodule "libraries/genai-startups"]
+	path = libraries/genai-startups
+	url = https://github.com/aws-samples/sample-genai-startups.git

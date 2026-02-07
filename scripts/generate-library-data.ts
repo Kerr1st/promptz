@@ -41,12 +41,13 @@ async function generateLibraryData() {
     // Ensure data directory exists
     await ensureDataDirectory()
     
-    // Read all four libraries
-    const [promptzLibrary, kiroLibrary, kiroBestPracticesLibrary, productTeamsLibrary] = await Promise.allSettled([
+    // Read all five libraries
+    const [promptzLibrary, kiroLibrary, kiroBestPracticesLibrary, productTeamsLibrary, genaiStartupsLibrary] = await Promise.allSettled([
       readPromptzLibrary(),
       readKiroLibrary(),
       readKiroBestPracticesLibrary(),
-      readProductTeamsLibrary()
+      readProductTeamsLibrary(),
+      readGenaiStartupsLibrary()
     ])
     
     // Extract data from successful library reads
@@ -54,6 +55,7 @@ async function generateLibraryData() {
     const kiroData = kiroLibrary.status === 'fulfilled' ? kiroLibrary.value : createEmptyLibrary('kiro-powers', '')
     const kiroBestPracticesData = kiroBestPracticesLibrary.status === 'fulfilled' ? kiroBestPracticesLibrary.value : createEmptyLibrary('kiro-best-practices', '')
     const productTeamsData = productTeamsLibrary.status === 'fulfilled' ? productTeamsLibrary.value : createEmptyLibrary('product-teams', '')
+    const genaiStartupsData = genaiStartupsLibrary.status === 'fulfilled' ? genaiStartupsLibrary.value : createEmptyLibrary('genai-startups', '')
     
     // Log any library read failures
     if (promptzLibrary.status === 'rejected') {
@@ -68,13 +70,16 @@ async function generateLibraryData() {
     if (productTeamsLibrary.status === 'rejected') {
       console.warn('⚠️  Failed to read product-teams library:', productTeamsLibrary.reason)
     }
+    if (genaiStartupsLibrary.status === 'rejected') {
+      console.warn('⚠️  Failed to read genai-startups library:', genaiStartupsLibrary.reason)
+    }
     
     // Generate JSON files for each content type
     await Promise.all([
       generatePromptsData(promptzData, productTeamsData),
-      generateAgentsData(promptzData),
+      generateAgentsData(promptzData, genaiStartupsData),
       generatePowersData(promptzData, kiroData),
-      generateSteeringData(promptzData, kiroData, kiroBestPracticesData, productTeamsData),
+      generateSteeringData(promptzData, kiroData, kiroBestPracticesData, productTeamsData, genaiStartupsData),
       generateHooksData(promptzData, kiroBestPracticesData, productTeamsData)
     ])
     
@@ -129,9 +134,12 @@ async function generatePromptsData(promptzLibrary: Library, productTeamsLibrary:
 /**
  * Generate agents.json
  */
-async function generateAgentsData(promptzLibrary: Library) {
+async function generateAgentsData(promptzLibrary: Library, genaiStartupsLibrary: Library) {
   try {
-    const allAgents = promptzLibrary.agents
+    const allAgents = [
+      ...promptzLibrary.agents,
+      ...genaiStartupsLibrary.agents
+    ]
     
     // Sort by creation date (newest first)
     const sortedAgents = allAgents.sort((a, b) => {
@@ -179,14 +187,15 @@ async function generatePowersData(promptzLibrary: Library, kiroLibrary: Library)
 /**
  * Generate steering.json
  */
-async function generateSteeringData(promptzLibrary: Library, kiroLibrary: Library, kiroBestPracticesLibrary: Library, productTeamsLibrary: Library) {
+async function generateSteeringData(promptzLibrary: Library, kiroLibrary: Library, kiroBestPracticesLibrary: Library, productTeamsLibrary: Library, genaiStartupsLibrary: Library) {
   try {
-    // Combine steering documents from all four libraries
+    // Combine steering documents from all five libraries
     const allSteering = [
       ...promptzLibrary.steering,
       ...kiroLibrary.steering,
       ...kiroBestPracticesLibrary.steering,
-      ...productTeamsLibrary.steering
+      ...productTeamsLibrary.steering,
+      ...genaiStartupsLibrary.steering
     ]
     
     // Sort by creation date (newest first)
@@ -361,6 +370,156 @@ async function readProductTeamsLibrary(): Promise<Library> {
     steering,
     hooks
   }
+}
+
+/**
+ * Read and parse the GenAI Startups library
+ * Contains agents and steering documents for GenAI development with Strands and AgentCore
+ */
+async function readGenaiStartupsLibrary(): Promise<Library> {
+  const libraryPath = path.join(LIBRARIES_PATH, 'genai-startups')
+  const libraryName = 'genai-startups'
+  
+  if (!(await directoryExists(libraryPath))) {
+    console.warn('GenAI Startups library not found')
+    return createEmptyLibrary(libraryName, libraryPath)
+  }
+  
+  // GenAI Startups library contains agents and steering in kiro-agents subdirectories
+  const kiroAgentsPath = path.join(libraryPath, 'kiro-agents')
+  const [agents, steering] = await Promise.all([
+    readAgentsFromKiroAgents(libraryName, kiroAgentsPath),
+    readSteeringFromKiroAgents(libraryName, kiroAgentsPath)
+  ])
+  
+  return {
+    name: libraryName,
+    path: libraryPath,
+    prompts: [],
+    agents,
+    powers: [],
+    steering,
+    hooks: []
+  }
+}
+
+/**
+ * Read agents from kiro-agents directory structure
+ * Each subdirectory contains a .kiro/agents folder with JSON agent configs
+ */
+async function readAgentsFromKiroAgents(libraryName: string, kiroAgentsPath: string): Promise<Agent[]> {
+  if (!(await directoryExists(kiroAgentsPath))) {
+    return []
+  }
+  
+  const agentDirs = await getDirectories(kiroAgentsPath)
+  const agents: Agent[] = []
+  
+  for (const agentDir of agentDirs) {
+    const dirAgents = await readAgentsFromKiroAgentDir(libraryName, kiroAgentsPath, agentDir)
+    agents.push(...dirAgents)
+  }
+  
+  return agents
+}
+
+/**
+ * Read agents from a single kiro-agent directory
+ */
+async function readAgentsFromKiroAgentDir(libraryName: string, kiroAgentsPath: string, agentDir: string): Promise<Agent[]> {
+  const agents: Agent[] = []
+  
+  try {
+    const agentsPath = path.join(kiroAgentsPath, agentDir, '.kiro', 'agents')
+    if (!(await directoryExists(agentsPath))) {
+      return []
+    }
+    
+    const agentFiles = await getFilesWithExtension(agentsPath, '.json')
+    for (const agentFile of agentFiles) {
+      const agentPath = path.join(agentsPath, agentFile)
+      const agent = await extractAgentMetadata(libraryName, agentFile, agentPath)
+      if (agent) {
+        agents.push(agent)
+      }
+    }
+  } catch (error) {
+    console.warn(`⚠️  Error processing agent directory ${agentDir}:`, error)
+  }
+  
+  return agents
+}
+
+/**
+ * Read steering documents from kiro-agents directory structure
+ * Each subdirectory may contain .kiro/rules and .kiro/context folders with MD files
+ */
+async function readSteeringFromKiroAgents(libraryName: string, kiroAgentsPath: string): Promise<SteeringDocument[]> {
+  if (!(await directoryExists(kiroAgentsPath))) {
+    return []
+  }
+  
+  const agentDirs = await getDirectories(kiroAgentsPath)
+  const steering: SteeringDocument[] = []
+  
+  for (const agentDir of agentDirs) {
+    try {
+      const kiroPath = path.join(kiroAgentsPath, agentDir, '.kiro')
+      
+      // Read from rules directory
+      const rulesPath = path.join(kiroPath, 'rules')
+      if (await directoryExists(rulesPath)) {
+        const ruleDocs = await readSteering(libraryName, rulesPath)
+        steering.push(...ruleDocs)
+      }
+      
+      // Read from context directory (recursively)
+      const contextPath = path.join(kiroPath, 'context')
+      if (await directoryExists(contextPath)) {
+        const contextDocs = await readSteeringRecursive(libraryName, contextPath)
+        steering.push(...contextDocs)
+      }
+    } catch (error) {
+      console.warn(`⚠️  Error processing steering in ${agentDir}:`, error)
+    }
+  }
+  
+  return steering
+}
+
+/**
+ * Recursively read steering documents from a directory and its subdirectories
+ */
+async function readSteeringRecursive(libraryName: string, basePath: string): Promise<SteeringDocument[]> {
+  if (!(await directoryExists(basePath))) {
+    return []
+  }
+  
+  const steering: SteeringDocument[] = []
+  
+  // Read MD files in current directory
+  const mdFiles = await getFilesWithExtension(basePath, '.md')
+  for (const mdFile of mdFiles) {
+    try {
+      const filePath = path.join(basePath, mdFile)
+      const doc = await extractSteeringMetadata(libraryName, mdFile, filePath)
+      if (doc) {
+        steering.push(doc)
+      }
+    } catch (error) {
+      console.warn(`⚠️  Error processing steering file ${mdFile}:`, error)
+    }
+  }
+  
+  // Recursively process subdirectories
+  const subdirs = await getDirectories(basePath)
+  for (const subdir of subdirs) {
+    const subdirPath = path.join(basePath, subdir)
+    const subdirDocs = await readSteeringRecursive(libraryName, subdirPath)
+    steering.push(...subdirDocs)
+  }
+  
+  return steering
 }
 /**
  * Read powers from a directory
