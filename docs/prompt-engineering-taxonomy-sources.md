@@ -9,10 +9,10 @@ Numbered references for [prompt-engineering-taxonomy-compact.md](./prompt-engine
 1. Chen, Y. et al. (Jul 2025). "A Comprehensive Survey of Hallucination in Large Language Models." [arXiv:2507.02870](https://arxiv.org/abs/2507.02870)
 2. Meincke, L., Mollick, E., Mollick, L. & Shapiro, D. (Jul 2025). "The Decreasing Value of Chain of Thought in Prompting." Wharton School, University of Pennsylvania. [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5285532)
 3. Sprague, Z. et al. (Jun 2025). "Mind Your Step (by Step): Chain-of-Thought can Reduce Performance on Tasks where Thinking Makes Humans Worse." ICML 2025. [arXiv:2410.21333](https://arxiv.org/abs/2410.21333)
-4. (Oct 2025). "Uncertainty Quantification, Advanced Decoding, and Principled Mitigation." [arXiv:2511.15005](https://arxiv.org/abs/2511.15005)
+4. (Nov 2025). "Uncertainty Quantification, Advanced Decoding, and Principled Mitigation." [arXiv:2511.15005](https://arxiv.org/abs/2511.15005)
 5. Cheng, J. et al. (Jun 2025). "Chain-of-Thought Prompting Obscures Hallucination Cues in Large Language Models." EMNLP 2025 Findings. East China Normal University, Wuhan University. [arXiv:2506.17088](https://arxiv.org/abs/2506.17088)
 6. (Jan 2026). "Hallucination Detection and Mitigation in Large Language Models." Operational framework for hallucination management. [arXiv:2601.09929](https://arxiv.org/abs/2601.09929)
-7. (Jan 2026). "Risk Analysis Grounded in Developer Queries." Code hallucination analysis — misspellings trigger hallucinations in up to 26% of tasks. [arXiv:2509.22202](https://arxiv.org/abs/2509.22202)
+7. Twist, L. et al. (Sep 2025, revised Jan 2026). "Library Hallucinations in LLMs: Risk Analysis Grounded in Developer Queries." Code hallucination analysis — misspellings trigger hallucinations in up to 26% of tasks. [arXiv:2509.22202](https://arxiv.org/abs/2509.22202)
 8. AWS (Jun 2025). "Minimize AI Hallucinations and Deliver Up to 99% Verification Accuracy with Automated Reasoning Checks." [aws.amazon.com](https://aws.amazon.com/blogs/aws/minimize-ai-hallucinations-and-deliver-up-to-99-verification-accuracy-with-automated-reasoning-checks-now-available/)
 9. (Jul 2025). "Theoretical Foundations and Mitigation of Hallucination in Large Language Models." PAC-Bayes bounds on hallucination risk. [arXiv:2507.22915](https://arxiv.org/abs/2507.22915)
 10. (Dec 2025). "Mitigating LLM Hallucination via Behaviorally Calibrated Reinforcement Learning." Hallucination as predictable consequence of training objectives. [arXiv:2512.19920](https://arxiv.org/abs/2512.19920)
@@ -24,7 +24,7 @@ Numbered references for [prompt-engineering-taxonomy-compact.md](./prompt-engine
 13. Frontiers in Artificial Intelligence (Jan 2026). "Survey and Analysis of Hallucinations in Large Language Models: Attribution to Prompting Strategies or Model Behavior." [Frontiers](https://www.frontiersin.org/journals/artificial-intelligence/articles/10.3389/frai.2025.1622292/full)
 14. (Aug 2025). "From Illusion to Insight: A Taxonomic Survey of Hallucination Mitigation Techniques in LLMs." [preprints.org](https://www.preprints.org/manuscript/202508.1942/v1)
 15. (Oct 2025). "An Application-Oriented Survey on RAG, Reasoning, and Agentic Systems." Hallucination mitigation through retrieval and reasoning. [arXiv:2510.24476](https://arxiv.org/abs/2510.24476)
-16. (Jun 2025). "Hallucination Assessment via Latent Testing." Latent-space approaches to hallucination detection. [arXiv:2601.14210](https://arxiv.org/abs/2601.14210)
+16. (Jan 2026). "Hallucination Assessment via Latent Testing." Latent-space approaches to hallucination detection. [arXiv:2601.14210](https://arxiv.org/abs/2601.14210)
 
 ## Foundation Model Provider Documentation
 
@@ -45,12 +45,11 @@ Numbered references for [prompt-engineering-taxonomy-compact.md](./prompt-engine
 
 29. AWS — "Prompt Engineering Concepts." Amazon Bedrock User Guide. [docs.aws.amazon.com](https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-engineering-guidelines.html) (evergreen)
 30. AWS — "Contextual Grounding Checks." Amazon Bedrock Guardrails. [docs.aws.amazon.com](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-contextual-grounding-check.html) (evergreen)
-31. AWS (Jun 2025). "Minimize AI Hallucinations and Deliver Up to 99% Verification Accuracy with Automated Reasoning Checks: Now Available." [aws.amazon.com](https://aws.amazon.com/blogs/aws/minimize-ai-hallucinations-and-deliver-up-to-99-verification-accuracy-with-automated-reasoning-checks-now-available/)
-32. AWS (Jun 2025). "Build Responsible AI Applications with Amazon Bedrock Guardrails." [aws.amazon.com](https://aws.amazon.com/blogs/machine-learning/build-responsible-ai-applications-with-amazon-bedrock-guardrails/)
+31. AWS (Jun 2025). "Build Responsible AI Applications with Amazon Bedrock Guardrails." [aws.amazon.com](https://aws.amazon.com/blogs/machine-learning/build-responsible-ai-applications-with-amazon-bedrock-guardrails/)
 
 ## Practitioner Guides and Third-Party Analysis
 
-33. PromptHub (Jun 2025). "Decreasing Hallucinations with CoVe." [prompthub.us](https://www.prompthub.us/blog/enhancing-ai-accuracy-decreasing-hallucinations-with-cove)
-34. Data Studios (2025). "Claude AI Prompting Techniques: Structure, Examples, and Best Practices." [datastudios.org](https://www.datastudios.org/post/claude-ai-prompting-techniques-structure-examples-and-best-practices)
-35. Getmaxim (Jan 2026). "Advanced Prompt Engineering Techniques in 2025." [getmaxim.ai](https://www.getmaxim.ai/articles/advanced-prompt-engineering-techniques-in-2025/)
-36. The Decoder (Feb 2026). "New Benchmark Shows AI Models Still Hallucinate Far Too Often." [the-decoder.com](https://the-decoder.com/new-benchmark-shows-ai-models-still-hallucinate-far-too-often/)
+32. PromptHub (Jun 2025). "Decreasing Hallucinations with CoVe." [prompthub.us](https://www.prompthub.us/blog/enhancing-ai-accuracy-decreasing-hallucinations-with-cove)
+33. Data Studios (2025). "Claude AI Prompting Techniques: Structure, Examples, and Best Practices." [datastudios.org](https://www.datastudios.org/post/claude-ai-prompting-techniques-structure-examples-and-best-practices)
+34. Getmaxim (Jan 2026). "Advanced Prompt Engineering Techniques in 2025." [getmaxim.ai](https://www.getmaxim.ai/articles/advanced-prompt-engineering-techniques-in-2025/)
+35. The Decoder (Feb 2026). "New Benchmark Shows AI Models Still Hallucinate Far Too Often." [the-decoder.com](https://the-decoder.com/new-benchmark-shows-ai-models-still-hallucinate-far-too-often/)
