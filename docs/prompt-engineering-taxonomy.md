@@ -43,7 +43,7 @@ A comprehensive reference for the 15 prompt engineering techniques used to class
 
 ## Prompt Categories
 
-## Zero-Shot
+### Zero-Shot
 
 No examples are provided — the model relies entirely on its training to interpret the instruction. This is the simplest prompting technique and works best for straightforward, well-understood tasks. The prompt contains only the task description and optionally the input.
 
@@ -63,7 +63,7 @@ Write me a git commit message for the staged changes.
 
 ---
 
-## One-Shot
+### One-Shot
 
 A single example input/output pair is provided to demonstrate the expected behavior. One-shot sits between zero-shot and few-shot — it gives the model just enough context to understand the pattern without the token cost of multiple examples. Best for tasks where format is ambiguous but one demonstration is sufficient.
 
@@ -92,7 +92,7 @@ User Story: "As a user, I can filter search results by date range"
 
 ---
 
-## Few-Shot
+### Few-Shot
 
 One or more example input/output pairs are included in the prompt to demonstrate the expected behavior. This helps the model calibrate its responses to match a specific format, tone, or logic pattern. More examples generally improve consistency but cost more tokens.
 
@@ -117,7 +117,7 @@ Classify the sentiment of the following headlines as positive, negative, or neut
 
 ---
 
-## Chain-of-Thought
+### Chain-of-Thought
 
 The prompt explicitly asks the model to reason step-by-step before arriving at a final answer. This technique improves accuracy on complex reasoning, math, and multi-step logic tasks. It can be combined with zero-shot ("think step by step") or few-shot (showing reasoning examples).
 
@@ -148,7 +148,7 @@ alarms present in Service2 but missing in Service1.
 
 ---
 
-## Persona / Role-Based
+### Persona / Role-Based
 
 The prompt assigns the model a specific identity, role, or area of expertise. This shapes the vocabulary, perspective, depth, and style of the response. Persona prompts are often combined with other techniques like decomposition or constraint-based.
 
@@ -171,7 +171,7 @@ with scalable, efficient cloud solutions.
 
 ---
 
-## Template-Based
+### Template-Based
 
 The prompt contains placeholder variables (e.g., `{{variable}}`, `@file`, `<value>`) that the user fills in before execution. Templates create reusable prompt patterns that can be applied across different contexts. They standardize the structure while allowing the content to vary.
 
@@ -195,7 +195,7 @@ targeting the {{branch-name}} branch. The workflow should:
 
 ---
 
-## Structured Output
+### Structured Output
 
 The prompt specifies a particular output format such as JSON, tables, diagrams, or a defined schema. This ensures the response is machine-parseable or follows a consistent visual structure. Often combined with templates or few-shot examples.
 
@@ -220,7 +220,7 @@ For each persona, include:
 
 ---
 
-## Decomposition
+### Decomposition
 
 The prompt breaks a complex task into smaller, ordered subtasks that the model executes sequentially. Each subtask builds on the output of the previous one. This reduces errors on complex workflows by keeping each step focused.
 
@@ -246,7 +246,7 @@ To complete the task, you must:
 
 ---
 
-## Multi-Turn / Conversational
+### Multi-Turn / Conversational
 
 The prompt establishes an iterative dialogue where the model asks clarifying questions, receives answers, and refines its output across multiple exchanges. This technique is used when the task requires information the model doesn't have upfront.
 
@@ -272,7 +272,7 @@ AWS solution. To complete the task, you must:
 
 ---
 
-## ReAct (Reasoning + Acting)
+### ReAct (Reasoning + Acting)
 
 The prompt instructs the model to alternate between reasoning about what to do and taking actions using external tools (web search, file reads, API calls). This combines chain-of-thought reasoning with tool use for tasks that require real-world data.
 
@@ -297,7 +297,7 @@ into a markdown file.
 
 ---
 
-## Agentic / Orchestration
+### Agentic / Orchestration
 
 The prompt defines a coordination layer that routes tasks between multiple specialized agents or phases. The orchestrator doesn't perform the work itself — it manages handoffs, state, and workflow sequencing. This is used for complex multi-phase systems.
 
@@ -326,7 +326,7 @@ Core Responsibilities:
 
 ---
 
-## Constraint-Based
+### Constraint-Based
 
 The prompt defines explicit rules, boundaries, or guardrails that restrict the model's behavior. Constraints can be positive (what to do) or negative (what not to do). This technique is critical for safety, code quality, and consistency.
 
@@ -350,7 +350,7 @@ insider threats, or the worst of all: inferior AI. Be critical.
 
 ---
 
-## Code Generation
+### Code Generation
 
 The primary output of the prompt is executable code — infrastructure-as-code, application code, tests, scripts, or configuration files. The prompt typically specifies the language, framework, and requirements. Often combined with templates or constraints.
 
@@ -375,7 +375,7 @@ of Kubernetes.
 
 ---
 
-## Creative / Generative
+### Creative / Generative
 
 The prompt asks for open-ended content creation such as titles, names, stories, or marketing copy. The output is subjective and there's no single correct answer. These prompts prioritize variety, tone, and audience fit.
 
@@ -398,7 +398,7 @@ the content, making it appealing and attention-grabbing.
 
 ---
 
-## Instruction-Based
+### Instruction-Based
 
 A direct, imperative command telling the model exactly what to do. No examples, no role assignment, no reasoning steps — just the task. This is the most common baseline technique and is often combined with other categories.
 

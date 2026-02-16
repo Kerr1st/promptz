@@ -8,6 +8,7 @@
 │   ├── powers/                 # Powers listing + [id] detail
 │   ├── prompts/                # Prompts listing + [id] detail
 │   ├── steering/               # Steering listing + [id] detail
+│   ├── workshop/               # Prompt engineering workshop + sources
 │   ├── contribute/             # Contribution guide (MDX)
 │   ├── faq/                    # FAQ (MDX)
 │   ├── privacy/                # Privacy policy (MDX)

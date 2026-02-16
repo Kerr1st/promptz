@@ -22,10 +22,23 @@ interface TaxonomyReferenceProps {
 
 export function TaxonomyReference({ idPrefix = 'technique-', expandedTechniqueId }: TaxonomyReferenceProps) {
   const [openItems, setOpenItems] = useState<string[]>([])
+  const [dismissedExternalId, setDismissedExternalId] = useState<string | null>(null)
 
-  const effectiveOpenItems = expandedTechniqueId && !openItems.includes(expandedTechniqueId)
+  const shouldInjectExternal =
+    expandedTechniqueId &&
+    expandedTechniqueId !== dismissedExternalId &&
+    !openItems.includes(expandedTechniqueId)
+
+  const effectiveOpenItems = shouldInjectExternal
     ? [...openItems, expandedTechniqueId]
     : openItems
+
+  function handleValueChange(value: string[]) {
+    if (expandedTechniqueId && !value.includes(expandedTechniqueId) && effectiveOpenItems.includes(expandedTechniqueId)) {
+      setDismissedExternalId(expandedTechniqueId)
+    }
+    setOpenItems(value)
+  }
 
   return (
     <div className="space-y-12">
@@ -111,7 +124,7 @@ export function TaxonomyReference({ idPrefix = 'technique-', expandedTechniqueId
           Browse all 15 prompt engineering techniques. Expand each to see
           descriptions, example prompts, risk profiles, and mitigated examples.
         </p>
-        <Accordion type="multiple" value={effectiveOpenItems} onValueChange={setOpenItems} className="space-y-4">
+        <Accordion type="multiple" value={effectiveOpenItems} onValueChange={handleValueChange} className="space-y-4">
           {TECHNIQUES.map(function (technique) {
             return (
               <AccordionItem

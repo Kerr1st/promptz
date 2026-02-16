@@ -12,7 +12,7 @@ import {
   resetProgress,
 } from '@/lib/workshop-progress'
 import type { ProgressState, ScenarioResult } from '@/lib/workshop-progress'
-import { BookOpen, FlaskConical, FileText, ExternalLink } from 'lucide-react'
+import { BookOpen, FlaskConical, FileText, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 const TECHNIQUE_ID_PREFIX = 'technique-'
@@ -141,7 +141,7 @@ export function WorkshopPage() {
               36 academic papers, provider docs, and practitioner guides backing this taxonomy
             </p>
           </div>
-          <ExternalLink
+          <ArrowRight
             className="size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-[#818CF8]"
             aria-hidden="true"
           />

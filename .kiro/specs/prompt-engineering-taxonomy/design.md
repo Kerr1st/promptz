@@ -154,6 +154,7 @@ The 7 universal mitigation strategies and 5 cross-provider consensus principles 
 interface MitigationStrategy {
   title: string
   description: string
+  example: string
 }
 
 const MITIGATION_STRATEGIES: MitigationStrategy[] = [...]
