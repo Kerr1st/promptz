@@ -794,7 +794,7 @@ The hallucination risk analysis above draws on peer-reviewed research from leadi
 | Transformer complexity caps at O(N² · d) | Sikka & Sikka [11] | Stanford, Jul 2025 |
 | Rewarding abstention reduces hallucination | OpenAI [12] | Sep 2025 |
 | Vague prompts hallucinate ~38%, CoT ~18% | Frontiers [13] | Jan 2026 |
-| New benchmark shows models still hallucinate frequently | The Decoder [36] | Feb 2026 |
+| New benchmark shows models still hallucinate frequently | The Decoder [35] | Feb 2026 |
 
 
 ---
