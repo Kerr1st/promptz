@@ -729,7 +729,7 @@ These strategies apply across all prompt types and are supported by both academi
 
 4. **Add verification loops:** Instruct the model to check its own output against the input or retrieved sources before finalizing. Chain-of-Verification is an emerging technique for this. AWS Automated Reasoning checks deliver up to 99% verification accuracy for factual claims [8, 31].
 
-5. **Use contextual grounding checks:** AWS Bedrock Guardrails support automated grounding and relevance checks that verify model responses against source material [30, 32].
+5. **Use contextual grounding checks:** AWS Bedrock Guardrails support automated grounding and relevance checks that verify model responses against source material [30, 31].
 
 6. **Lower temperature:** Reduce sampling temperature for factual tasks. Higher temperatures increase creativity but also increase hallucination risk.
 
@@ -779,7 +779,7 @@ The hallucination risk analysis above draws on peer-reviewed research from leadi
 
 - **AWS Automated Reasoning Checks** (Jun 2025) — Delivers up to 99% verification accuracy for factual claims in LLM outputs. Uses formal methods (mathematical proofs rather than statistical sampling) to verify model responses against source material. [8, 31]
 
-- **AWS Bedrock Guardrails — Contextual Grounding Checks** — Automated grounding and relevance checks that verify model responses against source material. Provides production-ready infrastructure for hallucination mitigation in deployed applications. [30, 32]
+- **AWS Bedrock Guardrails — Contextual Grounding Checks** — Automated grounding and relevance checks that verify model responses against source material. Provides production-ready infrastructure for hallucination mitigation in deployed applications. [30, 31]
 
 ### Key Findings Summary
 
@@ -830,7 +830,7 @@ Beyond academic research, the major foundation model providers have published th
 - **Ask Claude to extract rather than generate** — "quote the relevant passage" produces fewer hallucinations than "summarize"
 - **Use chain-of-thought prompting** ("let Claude think") with `<thinking>` tags to make reasoning explicit and auditable before the final answer
 - **Request action, not advice** — say "Do it" or "Make these changes" rather than "How can I improve this?" to get implementation rather than speculation
-- **Use positive instructions** — "Write 3 short paragraphs in plain text" is clearer than "Don't use markdown formatting"
+- **Use positive instructions** — "Write 3 short paragraphs in plain text" is clearer than "Don't use Markdown formatting"
 - **Don't over-emphasize tool use** — balanced guidance lets Claude decide when tools are needed; over-emphasis causes unnecessary tool calls and potential hallucination in tool selection
 
 ### Google DeepMind
@@ -841,7 +841,7 @@ Beyond academic research, the major foundation model providers have published th
 
 ### Meta AI (FAIR)
 
-**Chain-of-Verification (CoVe)** (September 2023, published ACL 2024) — Meta FAIR's most significant contribution to hallucination mitigation. CoVe is a multi-step self-verification process: (1) generate initial response, (2) create verification questions targeting claims in the response, (3) answer those questions independently (without seeing the original response), (4) revise the original response based on inconsistencies. Reports show CoVe boosts accuracy by up to 94% on certain tasks without requiring few-shot examples. This technique is particularly effective for list-based questions and long-form generation where hallucinations tend to accumulate. [33]
+**Chain-of-Verification (CoVe)** (September 2023, published ACL 2024) — Meta FAIR's most significant contribution to hallucination mitigation. CoVe is a multi-step self-verification process: (1) generate initial response, (2) create verification questions targeting claims in the response, (3) answer those questions independently (without seeing the original response), (4) revise the original response based on inconsistencies. Reports show CoVe boosts accuracy by up to 94% on certain tasks without requiring few-shot examples. This technique is particularly effective for list-based questions and long-form generation where hallucinations tend to accumulate. [32]
 
 **Llama model series** — Meta's open-source Llama models have been extensively studied for hallucination behavior. The open-source approach means the community has contributed substantially to understanding and mitigating hallucination patterns. Meta's RAG-focused research (CoVe) has been particularly influential across the ecosystem, with the technique applicable to any model, not just Llama.
 
